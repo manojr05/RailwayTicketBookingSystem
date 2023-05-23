@@ -1,5 +1,8 @@
 package com.train.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,6 +87,27 @@ public class TrainService {
 		repository.delete(byId);
 		andView.addObject("alert", "deleted successfully");
 		andView.addObject("list", repository.getAllTrain());
+		return andView;
+	}
+
+	public ModelAndView loadSearchTrainByIdPage() {
+		ModelAndView andView = new ModelAndView();
+		andView.setViewName("SearchTrainByNumber");
+		return andView;
+	}
+	
+	public ModelAndView loadSearchedTrainById(int trainId) {
+		ModelAndView andView = new ModelAndView();
+		Train byId = repository.getById(trainId);
+		if (byId == null) {
+			andView.setViewName("SearchTrainByNumber");
+			andView.addObject("alert", "no train found on the given id");
+		} else {
+			andView.setViewName("AllTrainBookingPage");
+			List<Train> list = new ArrayList<>();
+			list.add(byId);
+			andView.addObject("list", list);
+		}
 		return andView;
 	}
 }

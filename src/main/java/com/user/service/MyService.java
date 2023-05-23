@@ -20,7 +20,7 @@ public class MyService {
 
 	@Autowired
 	MyRepository repository;
-	
+
 	@Autowired
 	TrainRepository trainRepository;
 
@@ -61,7 +61,7 @@ public class MyService {
 		} else {
 			if (user.getPassword().equals(password)) {
 				andView.setViewName("UserMainPage");
-				andView.addObject("user",user);
+				andView.addObject("user", user);
 				session.setAttribute("user", user);
 			} else {
 				andView.setViewName("UserLogin");
@@ -73,6 +73,7 @@ public class MyService {
 
 	public ModelAndView loadResetPasswordFinalPage(int userId, long phoneNo, HttpSession session) {
 		ModelAndView andView = new ModelAndView();
+
 		User user = repository.getUserById(userId);
 		if (user == null) {
 			andView.setViewName("ResetPassword");
@@ -90,52 +91,82 @@ public class MyService {
 	}
 
 	public ModelAndView createNewPassword(HttpSession session, String password) {
-		User user = (User) session.getAttribute("myObj");
-		user.setPassword(password);
-		repository.updateUser(user);
-		ModelAndView andView = new ModelAndView("UserLogin");
-		session.removeAttribute("myObj");
-		andView.addObject("alert", "password changed successfully");
+		ModelAndView andView = new ModelAndView();
+
+		if (session.getAttribute("user") == null) {
+			andView.setViewName("UserLogin");
+			andView.addObject("alert", "session expired, please try to login again");
+		} else {
+			User user = (User) session.getAttribute("myObj");
+			user.setPassword(password);
+			repository.updateUser(user);
+			andView.setViewName("UserLogin");
+			session.removeAttribute("myObj");
+			andView.addObject("alert", "password changed successfully");
+		}
+
 		return andView;
 	}
 
-	
 	public ModelAndView loadAddMoneyPage() {
-		ModelAndView andView=new ModelAndView("AddMoney");
+		ModelAndView andView = new ModelAndView("AddMoney");
 		return andView;
 	}
 
 	public ModelAndView addMoney(double inr, HttpSession session) {
-		ModelAndView andView=new ModelAndView("UserMainPage");
-		User user=(User)session.getAttribute("user");
-		user.setInr(user.getInr()+inr);
-		repository.updateUser(user);
-		andView.addObject("user",user);
+		ModelAndView andView = new ModelAndView();
+
+		if (session.getAttribute("user") == null) {
+			andView.setViewName("UserLogin");
+			andView.addObject("alert", "session expired, please login again");
+		} else {
+			andView.setViewName("UserMainPage");
+			User user = (User) session.getAttribute("user");
+			user.setInr(user.getInr() + inr);
+			repository.updateUser(user);
+			andView.addObject("user", user);
+		}
+
 		return andView;
-		
+
 	}
 
 	public ModelAndView logoutUser(HttpSession session) {
-		ModelAndView andView=new ModelAndView("HomePage");
-		session.removeAttribute("user");
+		ModelAndView andView = new ModelAndView();
+		if (session.getAttribute("user") == null) {
+			andView.setViewName("UserLogin");
+			andView.addObject("alert","session expired, please login again");
+		} else {
+			andView.setViewName("HomePage");
+			session.removeAttribute("user");
+		}
 		return andView;
 	}
 
 	public ModelAndView loadViewAllTrainBookingPage() {
-		ModelAndView andView=new ModelAndView("AllTrainBookingPage");
-		andView.addObject("list",trainRepository.getAllTrain());
+		ModelAndView andView = new ModelAndView("AllTrainBookingPage");
+		andView.addObject("list", trainRepository.getAllTrain());
 		return andView;
 	}
 
 	public ModelAndView loadBookTrainForm(int id, HttpSession session) {
-		ModelAndView andView=new ModelAndView("BookTrainForm");
-		andView.addObject("train",trainRepository.getById(id));
+		ModelAndView andView = new ModelAndView("BookTrainForm");
+		andView.addObject("train", trainRepository.getById(id));
 		session.setAttribute("trainToBeBooked", trainRepository.getById(id));
-		User user=(User)session.getAttribute("user");
-		andView.addObject("user",user);
+		User user = (User) session.getAttribute("user");
+		andView.addObject("user", user);
 		return andView;
 	}
-	
-	
+
+	public ModelAndView loadUserMainPageOnCancel(HttpSession session) {
+		ModelAndView andView=new ModelAndView("UserMainPage");
+		return andView;
+		
+	}
+
+	public ModelAndView loadHomePage() {
+		ModelAndView andView=new ModelAndView("HomePage");
+		return andView;
+	}
 
 }

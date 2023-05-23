@@ -1,11 +1,10 @@
 package com.ticket.repository;
 
+import java.util.List;
 import javax.persistence.EntityManager;
-
+import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.user.repository.User;
 
 @Repository
 public class TicketRepository {
@@ -26,6 +25,18 @@ public class TicketRepository {
 	public void updateTicket(Ticket ticket) {
 		manager.getTransaction().begin();
 		manager.merge(ticket);
+		manager.getTransaction().commit();
+	}
+	
+	public List<Ticket> getAllTicket() {
+		Query query = manager.createQuery("select t from Ticket t");
+		List<Ticket> list = query.getResultList();
+		return list;
+	}
+	
+	public void deleteTicket(Ticket ticket) {
+		manager.getTransaction().begin();
+		manager.remove(ticket);
 		manager.getTransaction().commit();
 	}
 }

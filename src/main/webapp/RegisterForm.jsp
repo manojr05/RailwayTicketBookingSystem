@@ -54,7 +54,7 @@
 	        </tr>
 	        <tr>
 	            <td><button type="submit">Submit</button></td>
-	            <td><button type="reset">Cancel</button></td>
+	            <td><button type="reset" onclick="window.location.href='loadHomePage'">Cancel</button></td>
 	        </tr>
 	    </table>
 	</spring:form>

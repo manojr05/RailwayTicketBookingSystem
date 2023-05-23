@@ -58,4 +58,14 @@ public class TrainController {
 		return service.deleteTrain(id);
 	}
 	
+	
+	@GetMapping("loadSearchTrainByIdPage")
+	public ModelAndView loadSearchTrainByIdPage() {
+		return service.loadSearchTrainByIdPage();
+	}
+	
+	@PostMapping("loadSearchedTrainById")
+	public ModelAndView loadSearchedTrainById(@RequestParam int trainId) {
+		return service.loadSearchedTrainById(trainId);
+	}
 }

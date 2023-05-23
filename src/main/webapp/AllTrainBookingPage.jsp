@@ -44,5 +44,8 @@
 			</tr>
 		<%}%>
 	</table>
+	
+	<br>
+	<a><button onclick="window.location.href='loadUserMainPageOnCancel'">Back</button></a>
 </body>
 </html>

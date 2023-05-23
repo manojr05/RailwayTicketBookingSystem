@@ -14,5 +14,6 @@
 	</x:if>
 
 	<h1>Total Amount is: ${ticket.getAmount() }</h1>
+	<a href="bookTicket"><button>Book Ticket</button></a>
 </body>
 </html>

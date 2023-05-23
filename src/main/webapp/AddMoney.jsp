@@ -15,7 +15,7 @@
 	        </tr>
 	         <tr>
 	            <td><button type="submit">Add Money</button></td>
-	            <td><button type="reset">Cancel</button></td>
+	            <td><button type="reset" onclick="window.location.href='loadUserMainPageOnCancel'">Cancel</button></td>
 	        </tr>
 	   </table>
 	 </form>

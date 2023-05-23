@@ -24,7 +24,7 @@
 	        </tr>
 	         <tr>
 	            <td><button type="submit">Login</button></td>
-	            <td><button type="reset">Cancel</button></td>
+	            <td><button type="reset" onclick="window.location.href='loadHomePage'">Cancel</button></td>
 	        </tr>
 	   </table>
 	 </form>

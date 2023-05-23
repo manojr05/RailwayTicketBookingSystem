@@ -18,6 +18,11 @@ public class MyController {
 	@Autowired
 	MyService service;
 
+	@GetMapping("loadHomePage")
+	public ModelAndView loadHomePage() {
+		return service.loadHomePage();
+	}
+	
 	@GetMapping("loadRegisterUserForm")
 	public ModelAndView loadRegisterForm() {
 		return service.loadRegisterForm();
@@ -38,6 +43,11 @@ public class MyController {
 		return service.loadMainPage(userId, password, session);
 	}
 
+	@GetMapping("loadUserMainPageOnCancel")
+	public ModelAndView loadUserMainPageOnCancel(HttpSession session) {
+		return service.loadUserMainPageOnCancel(session);
+	}
+	
 	@GetMapping("loadResetPasswordPage")
 	public ModelAndView loadResetPasswordPage() {
 		return service.loadResetPasswordPage();

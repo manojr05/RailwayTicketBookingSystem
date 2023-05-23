@@ -15,7 +15,9 @@
 	<h1>Welcome to Railways</h1>
 	<h3>Wallet: ${user.getInr() }</h3>
 	<a href="loadAddMoneyPage"><button>Add Money</button></a><br>
-	<a href="loadViewAllTrainBookingPage"><button>Book Train</button></a><br>
+	<a href="loadShowAllTicketPage"><button>Show My Tickets</button></a><br>
+	<a href="loadViewAllTrainBookingPage"><button>Show Available Trains</button></a><br>
+	<a href="loadSearchTrainByIdPage"><button>Search Train By Train Number</button></a><br>
 	<a href="logoutUser"><button>Logout</button></a>
 </body>
 </html>
