@@ -11,7 +11,7 @@
 	<x:if test="${not empty alert}">
   		<script>alert('${alert}')</script>
 	</x:if>
-	<h1>Admin Login</h1>
+	<h2>Admin Login</h2>
 	<form action="loadAdminMainPage" method="post">
 		<table>
 	        <tr>

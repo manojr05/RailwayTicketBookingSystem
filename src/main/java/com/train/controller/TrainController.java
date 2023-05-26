@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +27,10 @@ public class TrainController {
 	@PostMapping("loadAdminMainPage")
 	public ModelAndView loadAdminMainPage(@RequestParam int id, @RequestParam String password) {
 		return service.loadAdminMainPage(id, password);
+	}
+	@RequestMapping("loadAdminMainPageOnBack")
+	public ModelAndView loadAdminMainPageOnBack() {
+		return service.loadAdminMainPageOnBack();
 	}
 
 	@GetMapping("loadAddTrainPage")

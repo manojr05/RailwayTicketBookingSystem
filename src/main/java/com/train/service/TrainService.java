@@ -110,4 +110,9 @@ public class TrainService {
 		}
 		return andView;
 	}
+
+	public ModelAndView loadAdminMainPageOnBack() {
+		ModelAndView andView=new ModelAndView("AdminMainPage");
+		return andView;
+	}
 }

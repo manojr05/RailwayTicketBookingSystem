@@ -18,7 +18,7 @@
 </script>
 </head>
 <body>
-	<h1>Registration Form</h1>
+	<h2>Registration Form</h2>
 	<spring:form onsubmit="return validatePassword();" method="post" modelAttribute="user" action="saveUser">
 		<table>
 	        <tr>

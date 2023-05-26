@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <script type="text/javascript">
 	function validatePassword() {
 	    var password1 = document.getElementById("password1").value;
@@ -18,7 +19,7 @@
 </script>
 </head>
 <body>
-	<h1>Change Password</h1>
+	<h2>Chaange Password</h2>
 
 	<form onsubmit="return validatePassword();" method="post" action="createNewPassword">
 		<table>

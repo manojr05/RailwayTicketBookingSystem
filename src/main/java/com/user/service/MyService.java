@@ -3,14 +3,10 @@ package com.user.service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.train.repository.TrainRepository;
 import com.user.repository.MyRepository;
 import com.user.repository.User;
@@ -47,6 +43,7 @@ public class MyService {
 			andView.addObject("alert", "Sorry, you are not eligible");
 		} else {
 			repository.saveNewUser(user);
+			andView.addObject("alert", "your user id is " + user.getId());
 			andView.addObject("message", "Profile created successfully");
 		}
 		return andView;
@@ -93,7 +90,7 @@ public class MyService {
 	public ModelAndView createNewPassword(HttpSession session, String password) {
 		ModelAndView andView = new ModelAndView();
 
-		if (session.getAttribute("user") == null) {
+		if (session.getAttribute("myObj") == null) {
 			andView.setViewName("UserLogin");
 			andView.addObject("alert", "session expired, please try to login again");
 		} else {
@@ -125,6 +122,8 @@ public class MyService {
 			user.setInr(user.getInr() + inr);
 			repository.updateUser(user);
 			andView.addObject("user", user);
+			andView.addObject("alert", inr + " rupees added to your wallet successfully");
+
 		}
 
 		return andView;
@@ -135,7 +134,7 @@ public class MyService {
 		ModelAndView andView = new ModelAndView();
 		if (session.getAttribute("user") == null) {
 			andView.setViewName("UserLogin");
-			andView.addObject("alert","session expired, please login again");
+			andView.addObject("alert", "session expired, please login again");
 		} else {
 			andView.setViewName("HomePage");
 			session.removeAttribute("user");
@@ -150,22 +149,33 @@ public class MyService {
 	}
 
 	public ModelAndView loadBookTrainForm(int id, HttpSession session) {
-		ModelAndView andView = new ModelAndView("BookTrainForm");
-		andView.addObject("train", trainRepository.getById(id));
-		session.setAttribute("trainToBeBooked", trainRepository.getById(id));
-		User user = (User) session.getAttribute("user");
-		andView.addObject("user", user);
+		ModelAndView andView = new ModelAndView();
+		if (session.getAttribute("user") == null) {
+			andView.setViewName("UserLogin");
+			andView.addObject("alert", "session expired, please login again");
+		} else {
+			andView.setViewName("BookTrainForm");
+			andView.addObject("train", trainRepository.getById(id));
+			session.setAttribute("trainToBeBooked", trainRepository.getById(id));
+			User user = (User) session.getAttribute("user");
+			andView.addObject("user", user);
+		}
 		return andView;
 	}
 
 	public ModelAndView loadUserMainPageOnCancel(HttpSession session) {
-		ModelAndView andView=new ModelAndView("UserMainPage");
+		ModelAndView andView = new ModelAndView("UserMainPage");
 		return andView;
-		
+
 	}
 
 	public ModelAndView loadHomePage() {
-		ModelAndView andView=new ModelAndView("HomePage");
+		ModelAndView andView = new ModelAndView("HomePage");
+		return andView;
+	}
+
+	public ModelAndView logoutAdmin() {
+		ModelAndView andView = new ModelAndView("HomePage");
 		return andView;
 	}
 

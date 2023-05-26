@@ -38,7 +38,7 @@ public class TicketService {
 
 		if (session.getAttribute("user") == null) {
 			andView.setViewName("UserLogin");
-			andView.addObject("alert","session expired, please login again");
+			andView.addObject("alert", "session expired, please login again");
 		} else {
 
 			// setting the known attributes
@@ -79,12 +79,13 @@ public class TicketService {
 
 			if (ticket.getNumberOfSeats() <= 0) {
 				andView.setViewName("BookTrainForm");
+				andView.addObject("user",user);
 				andView.addObject("alert", "please choose minimum of 1 seat");
 			} else {
-
 				if (train.getTotalSeats() < ticket.getNumberOfSeats()) {
 					andView.setViewName("AllTrainBookingPage");
 					andView.addObject("list", trainRepository.getAllTrain());
+					andView.addObject("user",user);
 					andView.addObject("alert", "Sorry, no seats availabel for the selected train.");
 				} else {
 
@@ -97,13 +98,15 @@ public class TicketService {
 						}
 					}
 
-					if (Period.between(ticket.getDateOfBooking().toLocalDate(), ticket.getDateOfJourney().toLocalDate())
-							.getDays() < 0 || flag) {
+					if (Period.between(ticket.getDateOfBooking().toLocalDate(), ticket.getDateOfJourney().toLocalDate()).getDays() < 0 || flag) {
 						andView.setViewName("BookTrainForm");
+						andView.addObject("user",user);
+						andView.addObject("train",train);
 						andView.addObject("alert", "Train Not Available For The Selected Date");
 					} else {
 						if (user.getInr() < totalAmount) {
 							andView.setViewName("UserMainPage");
+							andView.addObject("user",user);
 							andView.addObject("alert", "Insufficient Balance");
 						} else {
 
@@ -123,17 +126,14 @@ public class TicketService {
 							user.setInr(user.getInr() - totalAmount);
 
 							train.setTotalSeats(train.getTotalSeats() - ticket.getNumberOfSeats());
-
+							andView.addObject("user",user);
 							andView.addObject("ticket", ticket);
 							session.setAttribute("ticket", ticket);
 							session.setAttribute("trainToBeBooked", train);
 							session.setAttribute("user", user);
-
 						}
-
 					}
 				}
-
 			}
 		}
 
@@ -146,7 +146,7 @@ public class TicketService {
 
 		if (session.getAttribute("user") == null) {
 			andView.setViewName("UserLogin");
-			andView.addObject("alert","session expired, please login again");
+			andView.addObject("alert", "session expired, please login again");
 		} else {
 			andView.setViewName("UserMainPage");
 			Ticket ticket = (Ticket) session.getAttribute("ticket");
@@ -172,13 +172,12 @@ public class TicketService {
 
 		if (session.getAttribute("user") == null) {
 			andView.setViewName("UserLogin");
-			andView.addObject("alert","session expired, please login again");
+			andView.addObject("alert", "session expired, please login again");
 		} else {
 			andView.setViewName("ViewAllTicket");
 			User user = (User) session.getAttribute("user");
 			andView.addObject("list", user.getTicket());
 		}
-
 		return andView;
 	}
 
@@ -187,7 +186,7 @@ public class TicketService {
 
 		if (session.getAttribute("user") == null) {
 			andView.setViewName("UserLogin");
-			andView.addObject("alert","session expired, please login again");
+			andView.addObject("alert", "session expired, please login again");
 		} else {
 			andView.setViewName("ViewAllTicket");
 
@@ -208,7 +207,6 @@ public class TicketService {
 				andView.addObject("list", user.getTicket());
 			}
 		}
-
 		return andView;
 
 	}
