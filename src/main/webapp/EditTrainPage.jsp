@@ -69,7 +69,7 @@
 			</tr>
 			<tr>
 				<td><button type="submit">Update Train</button></td>
-				<td><button type="reset">Cancel</button></td>
+				<td><button type="">Cancel</button></td>
 			</tr>
 		</table>
 	</spring:form>

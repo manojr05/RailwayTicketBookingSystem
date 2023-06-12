@@ -24,7 +24,7 @@ public class Ticket {
 	Date dateOfBooking;
 	Date dateOfJourney;
 	String status;
-
+	
 	@ManyToOne
 	User user;
 }
